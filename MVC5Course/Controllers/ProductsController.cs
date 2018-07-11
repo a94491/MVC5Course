@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,18 +8,20 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
-using Omu.ValueInjecter;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : BaseController
+    public class ProductsController : Controller
     {
-        
+        private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
         public ActionResult Index()
         {
-            var data = db.Product.OrderByDescending(p => p.ProductId).Take(10).ToList();
+            var data = db.Product
+                .OrderByDescending(p => p.ProductId)
+                .Take(10)
+                .ToList();
             return View(data);
         }
 
